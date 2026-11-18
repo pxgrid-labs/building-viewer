@@ -3,6 +3,10 @@
 Draco + WebP で圧縮した建物モデルを three.js で表示し、camera-controls で操作するビューア。
 左上メニューから俯瞰・エントランス・見上げ・東西南北の各面へ、カメラをプリセット位置へ移動できる。
 
+## Live demo
+
+[Open the Building Viewer on GitHub Pages](https://pxgrid-labs.github.io/building-viewer/)
+
 ## モデル
 
 建物「FANTASY ART DECO ARCHITECTURE CLASSIC 01」
