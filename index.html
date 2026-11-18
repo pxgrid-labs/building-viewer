@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3D Building Viewer</title>
+	<style>*{box-sizing:border-box;margin:0;padding:0}html,body{background:#1a1a1f;width:100%;height:100%;overflow:hidden}#app{touch-action:none;width:100%;height:100%;display:block}#hint{color:#ffffffbf;pointer-events:none;-webkit-user-select:none;user-select:none;text-shadow:0 1px 2px #0009;font:12px/1.5 system-ui,sans-serif;position:fixed;bottom:12px;left:12px}#loading{color:#fff;z-index:10;background:#1a1a1f;justify-content:center;align-items:center;font:14px system-ui,sans-serif;transition:opacity .4s;display:flex;position:fixed;inset:0}#loading.hidden{opacity:0;pointer-events:none}#menu{z-index:5;touch-action:manipulation;flex-direction:column;align-items:flex-start;gap:8px;display:flex;position:fixed;top:12px;left:12px}#menu-toggle{appearance:none;color:#fff;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);-webkit-user-select:none;user-select:none;background:#14141a99;border:1px solid #ffffff40;border-radius:10px;width:44px;height:44px;font-size:20px;line-height:1}#menu-toggle:hover{background:#282832bf}#menu-list{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);background:#14141a99;border:1px solid #fff3;border-radius:10px;flex-direction:column;gap:4px;padding:6px;display:flex}#menu-list[hidden]{display:none}#menu-list button{appearance:none;color:#ffffffd9;text-align:left;cursor:pointer;white-space:nowrap;-webkit-user-select:none;user-select:none;background:0 0;border:none;border-radius:6px;padding:9px 14px;font:13px/1 system-ui,sans-serif}#menu-list button:hover{background:#ffffff1f}#menu-list button.active{color:#fff;background:#ffffff2e}</style>
+  <script type="module" crossorigin src="./assets/index-DQ7_l3Dh.js"></script>
+</head>
+<body>
+	<canvas id="app"></canvas>
+	<div id="menu">
+		<button id="menu-toggle" type="button" aria-label="メニュー" aria-expanded="true">☰</button>
+		<nav id="menu-list">
+			<button type="button" data-view="overview">俯瞰</button>
+			<button type="button" data-view="entrance">エントランス</button>
+			<button type="button" data-view="lookup">見上げ</button>
+			<button type="button" data-view="south">南面</button>
+			<button type="button" data-view="east">東面</button>
+			<button type="button" data-view="west">西面</button>
+			<button type="button" data-view="north">北面</button>
+		</nav>
+	</div>
+	<div id="hint">ドラッグ: 回転　ホイール / ピンチ: ズーム</div>
+	<div id="loading">Loading… 0%</div>
+</body>
+</html>
