@@ -1,11 +1,20 @@
 # building-viewer
 
-Draco + WebP で圧縮した建物モデルを three.js で表示し、camera-controls で操作するビューア。
-左上メニューから俯瞰・エントランス・見上げ・東西南北の各面へ、カメラをプリセット位置へ移動できる。
+Draco + WebP で圧縮した建物モデルを three.js で表示し、camera-controls でカメラプリセットを切り替えられるビューアです。
 
 ## Live demo
 
 [Open the Building Viewer on GitHub Pages](https://pxgrid-labs.github.io/building-viewer/)
+
+左上メニューから俯瞰・エントランス・見上げ・南面・東面・西面・北面へカメラを移動できます。
+
+![Building Viewer](thumbnail.png)
+
+## 見どころ
+
+- **モデルの圧縮**: 配布モデル `FC1.glb`（約114MB）を約1.5MBの `building.draco.glb` に圧縮しました。テクスチャをWebP化し、ジオメトリをDraco圧縮しています。形状の破壊やz-fightingを避けるため、`simplify`・`join` を使わず `dedup → prune → resize → webp → draco` を個別に適用しています。
+- **環境マップの圧縮**: 約1.4MBのHDRIをUASTC HDRからKTX2（BC6H相当）へ変換し、約600KBにしています。HDRのダイナミックレンジを保ったまま軽量化しています。
+- **カメラプリセット**: camera-controlsを直接呼ぶ関数として各プリセットを定義し、遷移後に距離と極角を制限して地面より下へ潜らないようにしています。エントランスと見上げでは、ドラッグ反転・低速・距離固定の一人称寄りの操作に切り替わります。
 
 ## モデル
 
@@ -36,3 +45,11 @@ https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky
   ```
 - 読み込みは `KTX2Loader`。basis transcoder は `import.meta.url` 参照の同梱コンフィグが無いため `public/basis/`（`basis_transcoder.js` / `.wasm`）に配置し `setTranscoderPath()` で参照。
 - 背景は `scene.environment`（PMREM）を流用。three の equirect→cube 変換は圧縮テクスチャで空が黒くなるため、PMREM 済みの環境を背景に使って回避している。
+
+## 素材のライセンス
+
+| 素材 | 出典 | ライセンス |
+| --- | --- | --- |
+| 建物 `building.draco.glb` | [FANTASY ART DECO ARCHITECTURE CLASSIC 01](https://www.cgtrader.com/free-3d-models/exterior/sci-fi-exterior/fantasy-art-deco-architecture-classic-01) (CGTrader) | 無料モデル |
+| 植栽 `tree.glb` | [Shapespark Low Poly Plants Kit](https://www.cgtrader.com/free-3d-models/plant/bush/shapespark-low-poly-plants-kit-free-low-poly-3d-model) (CGTrader) | 無料モデル |
+| 環境マップ `env.ktx2` | [kloofendal_48d_partly_cloudy_puresky](https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky) (Poly Haven) | CC0 |
