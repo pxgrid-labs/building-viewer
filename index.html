@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3D Building Viewer</title>
+	<style>
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		html, body { width: 100%; height: 100%; overflow: hidden; background: #1a1a1f; }
+		#app { width: 100%; height: 100%; display: block; touch-action: none; }
+		#hint {
+			position: fixed;
+			left: 12px;
+			bottom: 12px;
+			font: 12px/1.5 system-ui, sans-serif;
+			color: rgba( 255, 255, 255, 0.75 );
+			pointer-events: none;
+			user-select: none;
+			text-shadow: 0 1px 2px rgba( 0, 0, 0, 0.6 );
+		}
+		#loading {
+			position: fixed;
+			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font: 14px system-ui, sans-serif;
+			color: #fff;
+			background: #1a1a1f;
+			z-index: 10;
+			transition: opacity 0.4s ease;
+		}
+		#loading.hidden { opacity: 0; pointer-events: none; }
+		#menu {
+			position: fixed;
+			top: 12px;
+			left: 12px;
+			z-index: 5;
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			align-items: flex-start;
+			/* プリセットを連続タップしたときのダブルタップズームを抑止（子のボタンにも波及する） */
+			touch-action: manipulation;
+		}
+		#menu-toggle {
+			appearance: none;
+			width: 44px;
+			height: 44px;
+			border: 1px solid rgba( 255, 255, 255, 0.25 );
+			background: rgba( 20, 20, 26, 0.6 );
+			color: #fff;
+			font-size: 20px;
+			line-height: 1;
+			border-radius: 10px;
+			cursor: pointer;
+			backdrop-filter: blur( 8px );
+			user-select: none;
+		}
+		#menu-toggle:hover { background: rgba( 40, 40, 50, 0.75 ); }
+		#menu-list {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			padding: 6px;
+			border: 1px solid rgba( 255, 255, 255, 0.2 );
+			background: rgba( 20, 20, 26, 0.6 );
+			border-radius: 10px;
+			backdrop-filter: blur( 8px );
+		}
+		#menu-list[hidden] { display: none; }
+		#menu-list button {
+			appearance: none;
+			border: none;
+			background: transparent;
+			color: rgba( 255, 255, 255, 0.85 );
+			font: 13px/1 system-ui, sans-serif;
+			text-align: left;
+			padding: 9px 14px;
+			border-radius: 6px;
+			cursor: pointer;
+			white-space: nowrap;
+			user-select: none;
+		}
+		#menu-list button:hover { background: rgba( 255, 255, 255, 0.12 ); }
+		#menu-list button.active {
+			background: rgba( 255, 255, 255, 0.18 );
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="app"></canvas>
+	<div id="menu">
+		<button id="menu-toggle" type="button" aria-label="メニュー" aria-expanded="true">☰</button>
+		<nav id="menu-list">
+			<button type="button" data-view="overview">俯瞰</button>
+			<button type="button" data-view="entrance">エントランス</button>
+			<button type="button" data-view="lookup">見上げ</button>
+			<button type="button" data-view="south">南面</button>
+			<button type="button" data-view="east">東面</button>
+			<button type="button" data-view="west">西面</button>
+			<button type="button" data-view="north">北面</button>
+		</nav>
+	</div>
+	<div id="hint">ドラッグ: 回転　ホイール / ピンチ: ズーム</div>
+	<div id="loading">Loading… 0%</div>
+	<script type="module" src="/src/main.js"></script>
+</body>
+</html>
